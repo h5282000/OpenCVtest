@@ -44,15 +44,14 @@ namespace OpenCvtest
                 Orignalimg = Cv2.ImRead(Filepath, ImreadModes.Grayscale);
 
 
-                Cv2.GaussianBlur(Orignalimg, Orignalimg, new OpenCvSharp.Size(5, 5), 0); // 가우시안 블러 적용
-//              Cv2.BilateralFilter(Orignalimg, Orignalimg, 9, 3, 3, BorderTypes.Default); //리사이즈 시  쌍방필터 적용
+//              Cv2.GaussianBlur(Orignalimg, Orignalimg, new OpenCvSharp.Size(5, 5), 0); // 가우시안 블러 적용
 //              Cv2.MedianBlur(Orignalimg, Orignalimg, 15); // 리사이즈 시 메디안 블러 적용
 //              Cv2.BoxFilter(Orignalimg, Orignalimg, MatType.CV_8UC1, new OpenCvSharp.Size(3, 3), new OpenCvSharp.Point(0, 0), true, BorderTypes.Default); //리사이즈 시 박스 필터 적용
-//              Cv2.Blur(Orignalimg, Orignalimg, new OpenCvSharp.Size(3, 3)); // 리사이즈 시 단순 블러
+                Cv2.Blur(Orignalimg, Orignalimg, new OpenCvSharp.Size(3, 3)); // 리사이즈 시 단순 블러
 
 
                 OrignalPic.SizeMode = PictureBoxSizeMode.StretchImage;
-                OrignalPic.Image = image1;
+                OrignalPic.ImageIpl = Orignalimg;
             }
             else
                 return;
@@ -72,7 +71,7 @@ namespace OpenCvtest
                 Filepath = openFile.FileName;
                 Matchingimg = Cv2.ImRead(Filepath, ImreadModes.Grayscale);
                 MatchingPic.SizeMode = PictureBoxSizeMode.StretchImage;
-                MatchingPic.Image = image1;
+                MatchingPic.ImageIpl = Matchingimg;
             }
             else
                 return;
@@ -84,11 +83,10 @@ namespace OpenCvtest
 
 
             Cv2.Resize(Matchingimg, Resizeimg, new OpenCvSharp.Size(Convert.ToDouble(Orignalimg.Width) * (Convert.ToDouble(100)/ Convert.ToDouble(125)), Convert.ToDouble(Orignalimg.Height) * (Convert.ToDouble(100)/ Convert.ToDouble(125)))); // 리사이즈 테스트 0.8배율
-            Cv2.GaussianBlur(Resizeimg, Resizeimg, new OpenCvSharp.Size(5, 5), 0); // 리사이즈 시 가우시안 블러 적용
-//          Cv2.BilateralFilter(Resizeimg, Resizeimg, 9, 3, 3, BorderTypes.Default); //리사이즈 시  쌍방필터 적용
+//          Cv2.GaussianBlur(Resizeimg, Resizeimg, new OpenCvSharp.Size(5, 5), 0); // 리사이즈 시 가우시안 블러 적용
 //          Cv2.MedianBlur(Resizeimg, Resizeimg, 15); // 리사이즈 시 메디안 블러 적용
 //          Cv2.BoxFilter(Resizeimg, Resizeimg, MatType.CV_8UC1, new OpenCvSharp.Size(3, 3), new OpenCvSharp.Point(0, 0), true, BorderTypes.Default); //리사이즈 시 박스 필터 적용
-//          Cv2.Blur(Resizeimg, Resizeimg, new OpenCvSharp.Size(3, 3)); // 리사이즈 시 단순 블러
+            Cv2.Blur(Resizeimg, Resizeimg, new OpenCvSharp.Size(3, 3)); // 리사이즈 시 단순 블러
             Cv2.MatchTemplate(Orignalimg, Resizeimg, Result, TemplateMatchModes.CCoeffNormed); // 리사이즈 시 탬플릿 매칭
 
 
